@@ -1,0 +1,75 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Apr  7 14:48:14 2020
+
+@author: lavanbalendran
+"""
+
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.optimize import curve_fit
+"""
+def func(x, a, b, c):
+  #return a * np.exp(-b * x) + c
+  return a * np.log(b * x) + c
+
+x = np.linspace(1,5,50) # changed boundary conditions to avoid division by 0
+y = func(x, 2.5, 1.3, 0.5)
+yn = y + 0.2*np.random.normal(size=len(x))
+
+popt, pcov = curve_fit(func, x, yn)
+
+plt.figure()
+plt.plot(x, yn, label="Exp")
+plt.plot(x, func(x, *popt), label="Curve")
+plt.legend()
+plt.show()
+"""
+def linear(x,m,b): 
+    return(m*x)+b
+    
+
+x1 , y1 = np.loadtxt("Lavan_assignment_exp.txt")
+x2 , y2 = np.loadtxt("Lavan_assignment_linear.txt")
+x3 , y3 = np.loadtxt("Lavan_assignment_log.txt")
+
+plt.figure("Exponential")
+plt.title("Exponential")
+
+
+plt.plot(x1, y1, label='linear', marker='.', linestyle='none')
+x = np.linspace(0, max(x1),1000)
+y = np.linspace(0,max(y1),100) + 10
+popt, pcov = curve_fit(linear,x, y)
+print(popt)
+
+plt.plot(x, y, label='linear', marker='.', linestyle='none')
+plt.plot(x, linear(x, *pcov))
+
+plt.show()
+
+
+
+plt.figure("Linear")
+plt.title("Linear")
+plt.plot(x2, y2, label='linear', marker='.', linestyle='none')
+x_2 = np.linspace(0, max(x2),100)
+y_2 = np.linspace(0,max(y2),100)
+popt, pcov = curve_fit(linear,x, y) #are all of the x,y supposed to be x_2 and y_2? 
+print(popt)
+
+plt.plot(x_2, y_2, label='linear', marker='.', linestyle='none')
+plt.plot(x, linear(x, *pcov))
+
+plt.show()
+
+
+
+
+
+plt.figure("Logarithm")
+plt.title("Logarithm")
+plt.plot(x3, y3, label='linear', marker='.', linestyle='none')
+
+plt.show() 
